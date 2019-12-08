@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/blog/post/:postId" component={Auth(PostPage, null)} />
-          <Route exact path="blog" component={Auth(BlogPage, null)} />
+          <Route exact path="/blog" component={Auth(BlogPage, null)} />
           <Route exact path="/blog/create" component={Auth(CreatePage, null)} />
         </Switch>
       </div>

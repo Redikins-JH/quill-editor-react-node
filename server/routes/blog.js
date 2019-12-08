@@ -49,5 +49,27 @@ router.post("/createPost", (req, res) => {
   });
 });
 
+router.get("/getBlogs", (req, res) => {
+    
+    Blog.find()
+        .populate('writer')
+        .exec((err, blogs) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({ success:true, blogs})
+        })
+})
+
+
+router.post("/getPost", (req, res) => {
+    
+    Blog.findOne({ "_id": req.body.postId})
+        .populate('writer')
+        .exec((err, post) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({ success:true, post })
+        })
+})
+
+
 
 module.exports = router;

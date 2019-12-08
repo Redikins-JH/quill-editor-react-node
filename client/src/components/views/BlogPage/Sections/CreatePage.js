@@ -6,7 +6,7 @@ import QuillEditor from '../../../Editor/QuillEditor';
 
 const { Title } = Typography;
 
-export default function CreatePage() {
+export default function CreatePage(props) {
 
   const user = useSelector(state => state.user);
   const [files, setFiles] = useState([]);
@@ -28,19 +28,25 @@ export default function CreatePage() {
 
     setContent("")
     
-    if(user.userData && user.userData.isAuth) {
+    if(user.userData && !user.userData.isAuth) {
       return alert('Please log in first')
     }
 
     const variables = {
       content: content,
-      userID: user.userData._id
+      writer: user.userData._id
     }
 
 
     axios.post('/api/blog/createPost', variables)
     .then(response => {
-      console.log(response)
+      if(response.data.success) {
+        message.success('Post Created!');
+
+        setTimeout(() => {
+          props.history.push('/blog')
+        }, 2000);
+      }
     })
   }
 
